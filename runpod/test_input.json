@@ -1,0 +1,10 @@
+{
+  "input": {
+    "prompt": "Hello, this is a test of the Orpheus text to speech system.",
+    "voice": "tara",
+    "temperature": 0.4,
+    "top_p": 0.9,
+    "max_tokens": 2000,
+    "repetition_penalty": 1.1
+  }
+}
