@@ -18,7 +18,7 @@ ENV HF_HOME=/app/hf-cache
 ENV TRANSFORMERS_CACHE=/app/hf-cache
 
 # Pre-download the SNAC decoder model so it is baked into the image
-RUN python -c "\
+RUN python3 -c "\
 from snac import SNAC; \
 SNAC.from_pretrained('hubertsiuzdak/snac_24khz'); \
 print('SNAC model cached.')"
@@ -27,10 +27,10 @@ print('SNAC model cached.')"
 # Comment this out and mount a network volume instead if you want a smaller image.
 ARG PRELOAD_MODEL=true
 RUN if [ "$PRELOAD_MODEL" = "true" ]; then \
-      python -c "\
+      python3 -c "\
 from huggingface_hub import snapshot_download; \
 snapshot_download('canopylabs/orpheus-tts-0.1-finetune-prod'); \
 print('Orpheus model cached.')"; \
     fi
 
-CMD ["python", "-u", "handler.py"]
+CMD ["python3", "-u", "handler.py"]
