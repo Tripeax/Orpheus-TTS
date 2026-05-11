@@ -1,10 +1,7 @@
 import os
-import sys
 import base64
 import struct
 import runpod
-
-sys.path.insert(0, "/app")
 
 from orpheus_tts import OrpheusModel
 

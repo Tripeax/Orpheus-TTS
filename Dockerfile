@@ -8,8 +8,10 @@ RUN pip install --no-cache-dir \
     snac \
     runpod>=1.7.0
 
-# Copy the orpheus_tts package and handler
-COPY orpheus_tts_pypi/orpheus_tts ./orpheus_tts
+# Install the orpheus_tts package from the repo
+COPY orpheus_tts_pypi ./orpheus_tts_pypi
+RUN pip install --no-cache-dir ./orpheus_tts_pypi
+
 COPY runpod/handler.py ./handler.py
 
 # HuggingFace cache — override at runtime to point at a RunPod network volume
@@ -25,7 +27,7 @@ print('SNAC model cached.')"
 
 # Pre-download the Orpheus LLM weights (large — ~6 GB).
 # Comment this out and mount a network volume instead if you want a smaller image.
-ARG PRELOAD_MODEL=true
+ARG PRELOAD_MODEL=false
 RUN if [ "$PRELOAD_MODEL" = "true" ]; then \
       python3 -c "\
 from huggingface_hub import snapshot_download; \
